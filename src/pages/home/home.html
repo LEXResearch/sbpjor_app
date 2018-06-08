@@ -1,14 +1,55 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+<ion-slides (ionSlideDidChange)="slideChanged(item)" slidesPerView=3 centeredSlides="true">
+  <ion-slide>
+    <h1>07</h1>
+    <h3>Qui</h3>
+  </ion-slide>
+  <ion-slide>
+    <h1>08</h1>
+    <h3>Sex</h3>
+  </ion-slide>
+  <ion-slide>
+    <h1>09</h1>
+    <h3>Sáb</h3>
+  </ion-slide>
+</ion-slides>
+
+  <div [ngSwitch]="selectedDay">
+    <ion-list *ngSwitchCase="0" no-lines>
+      <ion-item *ngFor="let item of items">
+        <ion-row>
+          <ion-col col-3>9h15</ion-col>
+          <ion-col col-7>
+            <h2>Palestra de Abertura</h2>
+            <expandable [expandHeight]="expandHeight" [expanded]="item.expanded">
+              pipipi popopo
+              pipipi popopo
+              <br>
+              pipipi popopo
+              pipipi popopo
+              <br>
+              pipipi popopo
+              pipipi popopo
+              pipipi popopo
+              <button ion-button (click)="goTo"> Ver Trabalho </button>
+            </expandable>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button outline ion-add (click)="expandItem(item)">
+              <ion-icon name="add"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+    <ion-list *ngSwitchCase="1" no-lines>
+      <ion-item><h1>Testee</h1>Terminator II</ion-item>
+      <ion-item>UM</ion-item>
+
+    </ion-list>
+    <ion-list *ngSwitchCase="2" no-lines>
+      <h1>Uhu</h1>
+    </ion-list>
+  </div>
 </ion-content>

@@ -26,9 +26,9 @@ export class HomePage {
         {expanded: false}
     ];
   }
-  slideChanged(item) {
+  slideChanged() {
     this.selectedDay = this.slides.getActiveIndex();
-    console.log(item);
+    this.slides.resize();
   }
   expandItem(item){
         this.items.map((listItem) => {
@@ -39,5 +39,8 @@ export class HomePage {
             }
             return listItem;
         });
+    }
+    ngAfterViewInit() {
+      //this.slides.freeMode = true;
     }
 }

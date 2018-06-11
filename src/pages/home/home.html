@@ -1,6 +1,6 @@
 
 <ion-content>
-<ion-slides (ionSlideDidChange)="slideChanged(item)" slidesPerView=3 centeredSlides="true">
+<ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView=3 centeredSlides="true">
   <ion-slide>
     <h1>07</h1>
     <h3>Qui</h3>
@@ -22,16 +22,18 @@
           <ion-col col-3>9h15</ion-col>
           <ion-col col-7>
             <h2>Palestra de Abertura</h2>
+            <h3><ion-icon name="compass"></ion-icon> Local do Negocio</h3>
             <expandable [expandHeight]="expandHeight" [expanded]="item.expanded">
-              pipipi popopo
-              pipipi popopo
-              <br>
-              pipipi popopo
-              pipipi popopo
-              <br>
-              pipipi popopo
-              pipipi popopo
-              pipipi popopo
+              <div text-wrap>
+                <br>
+                pipipi popopo
+                pipipi popopo
+                pipipi popopo
+                pipipi popopo
+                pipipi popopo
+                pipipi popopo
+                pipipi popopo
+              </div>
               <button ion-button (click)="goTo"> Ver Trabalho </button>
             </expandable>
           </ion-col>

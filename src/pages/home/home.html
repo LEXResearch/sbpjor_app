@@ -1,57 +1,114 @@
+<ion-header no-border>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <div>
+      <ion-icon *ngIf="!toggled" (click)="toggle()" name="search"></ion-icon>
+      <ion-searchbar *ngIf="toggled"
+        (ionCancel) ="toggle()"
+        (ionClear) ="toggle()">
+      </ion-searchbar>
+    </div>
+  </ion-navbar>
+</ion-header>
 
 <ion-content>
-<ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView=3 centeredSlides="true">
-  <ion-slide>
-    <h1>07</h1>
-    <h3>Qui</h3>
-  </ion-slide>
-  <ion-slide>
-    <h1>08</h1>
-    <h3>Sex</h3>
-  </ion-slide>
-  <ion-slide>
-    <h1>09</h1>
-    <h3>Sáb</h3>
-  </ion-slide>
-</ion-slides>
+  <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView=3 centeredSlides="true">
+    <ion-slide [ngClass]="{'highlight': selectedDay == 0 }">
+      <div [ngClass]="{'number-active': selectedDay == 0, 'number': selectedDay != 0 }">07</div>
+      <div [ngClass]="{'text-active': selectedDay == 0, 'text': selectedDay != 0 }">QUA</div>
+    </ion-slide>
+    <ion-slide [ngClass]="{'highlight': selectedDay == 1 }">
+      <div [ngClass]="{'number-active': selectedDay == 1, 'number': selectedDay != 1 }">08</div>
+      <div [ngClass]="{'text-active': selectedDay == 1, 'text': selectedDay != 1 }">QUI</div>
+    </ion-slide>
+    <ion-slide [ngClass]="{'highlight': selectedDay == 2 }">
+      <div [ngClass]="{'number-active': selectedDay == 2, 'number': selectedDay != 2 }">09</div>
+      <div [ngClass]="{'text-active': selectedDay == 2, 'text': selectedDay != 2 }">SEX</div>
+    </ion-slide>
+  </ion-slides>
 
   <div [ngSwitch]="selectedDay">
     <ion-list *ngSwitchCase="0" no-lines>
-      <ion-item *ngFor="let item of items">
+      <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>
         <ion-row>
-          <ion-col col-3>9h15</ion-col>
-          <ion-col col-7>
-            <h2>Palestra de Abertura</h2>
-            <h3><ion-icon name="compass"></ion-icon> Local do Negocio</h3>
-            <expandable [expandHeight]="expandHeight" [expanded]="item.expanded">
-              <div text-wrap>
-                <br>
-                pipipi popopo
-                pipipi popopo
-                pipipi popopo
-                pipipi popopo
-                pipipi popopo
-                pipipi popopo
-                pipipi popopo
+            <ion-col col-3>
+              <div class="hora" margin-left>
+                {{ item.hora }}
               </div>
-              <button ion-button (click)="goTo"> Ver Trabalho </button>
-            </expandable>
-          </ion-col>
-          <ion-col col-2>
-            <button ion-button outline ion-add (click)="expandItem(item)">
-              <ion-icon name="add"></ion-icon>
-            </button>
-          </ion-col>
+            </ion-col>
+            <ion-col col-7>
+              <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
+              <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
+              <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
+                <br>
+                {{ item.description }}
+                <br>
+                <button *ngIf="item.trab" ion-button (click)="itemTapped($event, item)"> Ver Trabalho </button>
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button outline (click)="expandItem(item)" class="my-button">
+                <ion-icon name="add"></ion-icon>
+              </button>
+            </ion-col>
+
         </ion-row>
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="1" no-lines>
-      <ion-item><h1>Testee</h1>Terminator II</ion-item>
-      <ion-item>UM</ion-item>
-
+      <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>
+        <ion-row>
+            <ion-col col-3>
+              <div class="hora" margin-left>
+                {{ item.hora }}
+              </div>
+            </ion-col>
+            <ion-col col-7>
+              <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
+              <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
+              <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
+                <br>
+                {{ item.description }}
+                <br>
+                <button *ngIf="item.trab" ion-button (click)="itemTapped($event, item)"> Ver Trabalho </button>
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button outline (click)="expandItem(item)" class="my-button">
+                <ion-icon name="add"></ion-icon>
+              </button>
+            </ion-col>
+        </ion-row>
+      </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="2" no-lines>
-      <h1>Uhu</h1>
+      <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>
+        <ion-row>
+            <ion-col col-3>
+              <div class="hora" margin-left>
+                {{ item.hora }}
+              </div>
+            </ion-col>
+            <ion-col col-7>
+              <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
+              <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
+              <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
+                <br>
+                {{ item.description }}
+                <br>
+                <button *ngIf="item.trab" ion-button (click)="itemTapped($event, item)"> Ver Trabalho </button>
+              </div>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button outline (click)="expandItem(item)" class="my-button">
+                <ion-icon name="add"></ion-icon>
+              </button>
+            </ion-col>
+
+        </ion-row>
+      </ion-item>
     </ion-list>
   </div>
 </ion-content>

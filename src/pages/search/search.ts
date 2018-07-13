@@ -1,25 +1,23 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Slides } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 
-import { DescriptionPage } from '../description/description';
+/**
+ * Generated class for the SearchPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-search',
+  templateUrl: 'search.html',
 })
-export class HomePage {
-  @ViewChild(Slides) slides: Slides;
-
-  selectedDay: number = 0;
-  expandHeight: number = 500;
+export class SearchPage {
+  searchMode: string = "autor";
+  searchInput: string;
   items: Array<{open: boolean, color: any, hora: string, title: string, location: string, description: string, trab: boolean }>;
-  days: any = [];
-  toggled: boolean = false;
-
-
-  constructor(public navCtrl: NavController) {
-    this.toggled = false;
+  filterItems: Array<{open: boolean, color: any, hora: string, title: string, location: string, description: string, trab: boolean }>;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.items = [
         {
           open: false,
@@ -67,29 +65,43 @@ export class HomePage {
           trab: true
         }
     ];
-  }
-  toggle() {
-    this.toggled = !this.toggled;
-  }
-  slideChanged() {
-    this.selectedDay = this.slides.getActiveIndex();
-  }
-  expandItem(item){
-        this.items.map((listItem) => {
-            if(item == listItem){
-                listItem.open = !listItem.open;
-            } else {
-                listItem.open = false;
-            }
-            return listItem;
-        });
-  }
-  itemTapped(event, item){
-    this.navCtrl.push(DescriptionPage, {
-      item: item
-    });
+    this.filterItems = this.items;
   }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SearchPage');
+  }
+
+  onInput($event) {
+    switch (this.searchMode) {
+      case "autor":{
+        this.filterItems = this.items.filter((item) => {
+          return item.title.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1;
+        });
+        break;
+      }
+      case "nome":{
+        this.filterItems = this.items.filter((item) => {
+          return item.title.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1;
+        });
+        break;
+      }
+      case "assunto":{
+        this.filterItems = this.items.filter((item) => {
+          return item.description.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1;
+        });
+        break;
+      }
+      case "sessao":{
+        this.filterItems = this.items.filter((item) => {
+          return item.title.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1;
+        });
+        break;
+      }
+
+    }
+
+  }
 
 
 }

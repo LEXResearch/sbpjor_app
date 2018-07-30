@@ -1,19 +1,16 @@
 <ion-header no-border>
-  <ion-navbar>
+  <ion-navbar class="navbar">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <div>
+    <!-- <div>
       <ion-icon *ngIf="!toggled" (click)="toggle()" name="search"></ion-icon>
       <ion-searchbar *ngIf="toggled"
         (ionCancel) ="toggle()"
         (ionClear) ="toggle()">
       </ion-searchbar>
-    </div>
+    </div> -->
   </ion-navbar>
-</ion-header>
-
-<ion-content>
   <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView=3 centeredSlides="true">
     <ion-slide [ngClass]="{'highlight': selectedDay == 0 }">
       <div [ngClass]="{'number-active': selectedDay == 0, 'number': selectedDay != 0 }">07</div>
@@ -28,6 +25,10 @@
       <div [ngClass]="{'text-active': selectedDay == 2, 'text': selectedDay != 2 }">SEX</div>
     </ion-slide>
   </ion-slides>
+</ion-header>
+
+<ion-content>
+
 
   <div [ngSwitch]="selectedDay">
     <ion-list *ngSwitchCase="0" no-lines>
@@ -43,14 +44,17 @@
               <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
               <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
                 <br>
-                {{ item.description }}
+                <div class="description">
+                  {{ item.description }}
+                </div>
                 <br>
-                <button *ngIf="item.trab" ion-button (click)="itemTapped($event, item)"> Ver Trabalho </button>
+                <button *ngIf="item.mesas != null" outline ion-button (click)="itemTapped($event, item)">Ver Mesas</button>
               </div>
             </ion-col>
             <ion-col col-2>
               <button ion-button outline (click)="expandItem(item)" class="my-button">
-                <ion-icon name="add"></ion-icon>
+                <ion-icon *ngIf="!item.open" name="add"></ion-icon>
+                <ion-icon *ngIf="item.open" name="remove"></ion-icon>
               </button>
             </ion-col>
 
@@ -72,12 +76,13 @@
                 <br>
                 {{ item.description }}
                 <br>
-                <button *ngIf="item.trab" ion-button (click)="itemTapped($event, item)"> Ver Trabalho </button>
+                <button *ngIf="item.mesas != null " outline ion-button (click)="itemTapped($event, item)">  Ver Mesas </button>
               </div>
             </ion-col>
             <ion-col col-2>
               <button ion-button outline (click)="expandItem(item)" class="my-button">
-                <ion-icon name="add"></ion-icon>
+                <ion-icon *ngIf="!item.open" name="add"></ion-icon>
+                <ion-icon *ngIf="item.open" name="remove"></ion-icon>
               </button>
             </ion-col>
         </ion-row>
@@ -98,12 +103,13 @@
                 <br>
                 {{ item.description }}
                 <br>
-                <button *ngIf="item.trab" ion-button (click)="itemTapped($event, item)"> Ver Trabalho </button>
+                <button *ngIf="item.mesas != null " outline ion-button (click)="itemTapped($event, item)">  Ver Mesas </button>
               </div>
             </ion-col>
             <ion-col col-2>
               <button ion-button outline (click)="expandItem(item)" class="my-button">
-                <ion-icon name="add"></ion-icon>
+                <ion-icon *ngIf="!item.open"name="add"></ion-icon>
+                <ion-icon *ngIf="item.open" name="remove"></ion-icon>
               </button>
             </ion-col>
 

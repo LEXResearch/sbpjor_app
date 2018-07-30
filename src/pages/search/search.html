@@ -1,35 +1,29 @@
-<!--
-  Generated template for the SearchPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header no-border>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-  <ion-searchbar
-    [(ngModel)]="searchInput"
-    (ionInput)="onInput($event)"
-    placeholder="Pesquisar"
-    >
-  </ion-searchbar>
-
+    <ion-row>
+      <ion-input class="searchInput" placeholder="Pesquisar"
+      [(ngModel)]="searchInput"
+      (ionChange)="onInput($event)"
+      clearInput></ion-input>
+      <ion-icon class="iconSize" padding name="search"></ion-icon>
+    </ion-row>
 </ion-navbar>
 <div>
-  <ion-segment [(ngModel)]="searchMode" color="secondary">
+  <ion-segment [(ngModel)]="searchMode" color="primary">
     <ion-segment-button value="autor">
       Geral
     </ion-segment-button>
-    <ion-segment-button value="nome">
-      Nome Trabalho
+    <ion-segment-button value="titulo">
+      Título
     </ion-segment-button>
     <ion-segment-button value="assunto">
       Autor
     </ion-segment-button>
-    <ion-segment-button value="sessao">
-      Mesa
+    <ion-segment-button value="mesas">
+      Mesas
     </ion-segment-button>
   </ion-segment>
 </div>
@@ -47,13 +41,12 @@
             </div>
           </ion-col>
           <ion-col col-9>
-            <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
-            <div [ngClass]="{'location-active': item.open, 'location': !item.open}">Jaum (item.author)</div>
+            <div class="title">{{ item.title }}</div>
+            <div class="author">{{ item.author }}</div>
           </ion-col>
           <ion-col col-1>
             <ion-icon name="download"></ion-icon>
           </ion-col>
-
       </ion-row>
     </ion-item>
   </ion-list>

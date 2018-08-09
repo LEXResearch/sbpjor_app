@@ -1,15 +1,8 @@
 <ion-header no-border>
-  <ion-navbar class="navbar">
+  <ion-navbar class="navbar" color="white">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <!-- <div>
-      <ion-icon *ngIf="!toggled" (click)="toggle()" name="search"></ion-icon>
-      <ion-searchbar *ngIf="toggled"
-        (ionCancel) ="toggle()"
-        (ionClear) ="toggle()">
-      </ion-searchbar>
-    </div> -->
   </ion-navbar>
   <ion-slides (ionSlideDidChange)="slideChanged()" slidesPerView=3 centeredSlides="true">
     <ion-slide [ngClass]="{'highlight': selectedDay == 0 }">
@@ -26,37 +19,29 @@
     </ion-slide>
   </ion-slides>
 </ion-header>
-
+<br>
 <ion-content>
 
 
   <div [ngSwitch]="selectedDay">
     <ion-list *ngSwitchCase="0" no-lines>
-      <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>
+      <ion-item *ngFor="let p of posts" margin-top >
         <ion-row>
             <ion-col col-3>
               <div class="hora" margin-left>
-                {{ item.hora }}
+                {{ p.userId }}
               </div>
             </ion-col>
             <ion-col col-7>
-              <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
-              <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
-              <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
-                <br>
+
                 <div class="description">
-                  {{ item.description }}
+                  {{ p.body }}
                 </div>
                 <br>
-                <button *ngIf="item.mesas != null" outline ion-button (click)="itemTapped($event, item)">Ver Mesas</button>
-              </div>
+                <!-- <button *ngIf="item.mesas != null" outline ion-button (click)="itemTapped($event, item)">Ver Mesas</button> -->
+
             </ion-col>
-            <ion-col col-2>
-              <button ion-button outline (click)="expandItem(item)" class="my-button">
-                <ion-icon *ngIf="!item.open" name="add"></ion-icon>
-                <ion-icon *ngIf="item.open" name="remove"></ion-icon>
-              </button>
-            </ion-col>
+
 
         </ion-row>
       </ion-item>

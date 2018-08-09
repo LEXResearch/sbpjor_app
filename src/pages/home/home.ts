@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+
 import { DescriptionPage } from '../description/description';
 
 @Component({
@@ -17,8 +20,15 @@ export class HomePage {
   days: any = [];
   toggled: boolean = false;
 
+  posts: any;
 
-  constructor(public navCtrl: NavController) {
+
+  constructor(public navCtrl: NavController, public http: Http) {
+    this.http.get('https://jsonplaceholder.typicode.com/posts').map(res => res.json()).subscribe(data => {
+        this.posts = data;
+        console.log(data);
+    });
+
     this.toggled = false;
     this.items = [
         {
@@ -96,7 +106,4 @@ export class HomePage {
       item: item
     });
   }
-
-
-
 }

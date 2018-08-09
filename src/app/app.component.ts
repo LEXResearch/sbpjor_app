@@ -22,12 +22,13 @@ export class MyApp {
   rootPage: any = HomePage;
 
   appPages: PageInterface[] = [
-    { title: 'Início', name: 'HomePage', component: HomePage, icon: 'home' },
-    { title: 'Pesquisa', name: 'SearchPage', component: SearchPage,   icon: 'search' },
-    { title: 'Trabalhos Favoritos', name: 'SearchPage', component: SearchPage,   icon: 'star' },
-    { title: 'Fale Conosco', name: 'SearchPage', component: SearchPage,   icon: 'text' },
-    { title: 'Meus Dados', name: 'SearchPage', component: SearchPage,   icon: 'contact' },
-    { title: 'Infos', name: 'SearchPage', component: SearchPage,   icon: 'information' },
+    { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
+    { title: 'Cronograma', name: 'HomePage', component: HomePage, icon: 'custom-cronograma' },
+    { title: 'Pesquisa', name: 'SearchPage', component: SearchPage,   icon: 'custom-pesquisa' },
+    { title: 'Trabalhos Favoritos', name: 'SearchPage', component: SearchPage,   icon: 'custom-favoritos' },
+    { title: 'Fale Conosco', name: 'SearchPage', component: SearchPage,   icon: 'custom-contato' },
+    { title: 'Meus Dados', name: 'SearchPage', component: SearchPage,   icon: 'custom-configuracao' },
+    { title: 'Infos', name: 'SearchPage', component: SearchPage,   icon: 'custom-informacao' },
   ]
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {

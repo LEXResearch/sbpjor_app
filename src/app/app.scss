@@ -19,3 +19,50 @@
     font-family: 'Open Sans', sans-serif;
     color: #58595b;
 }
+ion-icon {
+  &[class*="custom-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+
+  &[class*="custom-arquivos"] {
+    mask-image: url(../assets/icon/arquivos.svg);
+  }
+  &[class*="custom-cronograma"] {
+    mask-image: url(../assets/icon/cronograma.svg);
+  }
+  &[class*="custom-configuracao"] {
+    mask-image: url(../assets/icon/configuracao.svg);
+  }
+  &[class*="custom-contato"] {
+    mask-image: url(../assets/icon/contato.svg);
+  }
+  &[class*="custom-download"] {
+    mask-image: url(../assets/icon/download.svg);
+  }
+  &[class*="custom-edit"] {
+    mask-image: url(../assets/icon/edit.svg);
+  }
+  &[class*="custom-home"] {
+    mask-image: url(../assets/icon/home.svg);
+  }
+  &[class*="custom-info"] {
+    mask-image: url(../assets/icon/info.svg);
+  }
+  &[class*="custom-localizacao"] {
+    mask-image: url(../assets/icon/localizacao.svg);
+  }
+  &[class*="custom-pesquisa"] {
+    mask-image: url(../assets/icon/pesquisa.svg);
+  }
+  &[class*="custom-relogio"] {
+    mask-image: url(../assets/icon/relogio.svg);
+  }
+  &[class*="custom-favoritos"] {
+    mask-image: url(../assets/icon/favoritos.svg);
+  }
+}

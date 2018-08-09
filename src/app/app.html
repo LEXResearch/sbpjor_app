@@ -1,42 +1,18 @@
 <ion-menu [content]="content">
-  <ion-header no-border>
-    <ion-toolbar>
+  <ion-header no-border >
+    <ion-toolbar color="main" >
         <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
+          <ion-icon name="menu" color="white"></ion-icon>
         </button>
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list no-lines>
+    <ion-list no-lines margin-left margin-top>
       <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
         <ion-icon item-start [name]="p.icon"></ion-icon>
         {{ p.title }}
       </button>
-      <!-- <button ion-item (click)="openPage(friendsPage)">
-        <ion-icon item-start name="calendar" ></ion-icon>
-        Cronograma
-      </button>
-      <button ion-item (click)="openPage(SearchPage)">
-        <ion-icon item-start name="search" ></ion-icon>
-        Pesquisa
-      </button>
-      <button ion-item (click)="openPage(eventsPage)">
-        <ion-icon item-start name="bookmarks" ></ion-icon>
-        Favoritos
-      </button>
-      <button ion-item (click)="openPage(eventsPage)">
-        <ion-icon item-start name="chatbubbles" ></ion-icon>
-        Fale Conosco
-      </button>
-      <button ion-item (click)="openPage(eventsPage)">
-        <ion-icon item-start name="contact" ></ion-icon>
-        Meus Dados
-      </button>
-      <button ion-item (click)="openPage(eventsPage)">
-        <ion-icon item-start name="information-circle" ></ion-icon>
-        Infos
-      </button> -->
     </ion-list>
   </ion-content>
 </ion-menu>

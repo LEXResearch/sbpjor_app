@@ -5,6 +5,8 @@ import { Slides } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Storage } from '@ionic/storage';
+
 import { DescriptionPage } from '../description/description';
 
 @Component({
@@ -23,10 +25,9 @@ export class HomePage {
   posts: any;
 
 
-  constructor(public navCtrl: NavController, public http: Http) {
-    this.http.get('https://jsonplaceholder.typicode.com/posts').map(res => res.json()).subscribe(data => {
-        this.posts = data;
-        console.log(data);
+  constructor(public navCtrl: NavController, public http: Http, public storage: Storage) {
+    storage.get('cronograma').then((val) => {
+      this.posts = val;
     });
 
     this.toggled = false;

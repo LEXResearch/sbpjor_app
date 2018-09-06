@@ -11,6 +11,9 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SearchPage } from '../pages/search/search';
 import { DescriptionPage } from '../pages/description/description';
+import { FavoritePage } from '../pages/favorite/favorite';
+import { TalkUsPage } from '../pages/talk-us/talk-us';
+import { AboutPage } from '../pages/about/about';
 
 //import { ContentServiceProvider } from '../providers/content-service/content-service';
 
@@ -20,13 +23,16 @@ import { DescriptionPage } from '../pages/description/description';
     HomePage,
     SearchPage,
     DescriptionPage,
+    FavoritePage,
+    TalkUsPage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {}, {
       links: [
-        { component: HomePage, name: 'HomePage', segment: 'nome-page' },
-        { component: SearchPage, name: 'SearchPage', segment: 'search-page' },
+        { component: HomePage, name: 'HomePage', segment: 'cronograma' },
+        { component: SearchPage, name: 'SearchPage', segment: 'search' },
       ]
     }),
     HttpModule,
@@ -38,6 +44,9 @@ import { DescriptionPage } from '../pages/description/description';
     HomePage,
     SearchPage,
     DescriptionPage,
+    FavoritePage,
+    TalkUsPage,
+    AboutPage
   ],
   providers: [
     StatusBar,

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, ModalController, Select } from 'ionic-angular';
+
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the SearchPage page.
@@ -13,12 +15,17 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search.html',
 })
 export class SearchPage {
+  @ViewChild(Select) select: Select;
+
   searchMode: string = "autor";
   searchInput: string;
   mesa: any;
   items: any;
   filterItems: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  selectorOpen: false;
+  eventsOptions: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
+  public modal: ModalController) {
     this.mesa = navParams.get('mesa');
     if (this.mesa != null) {
       this.items = this.mesa.trabs;
@@ -31,15 +38,17 @@ export class SearchPage {
       //this.items = "all";
       this.filterItems = this.items;
     }
+    this.storage.get('cronograma').then((val) => {
+      console.log('Your age is', val);
+    });
 
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
+  openModal() {
+      this.select.open();
   }
 
   onInput($event) {
-    console.log(this.searchInput);
+    //console.log(this.searchInput);
     switch (this.searchMode) {
       case "autor":{
         this.filterItems = this.items.filter((item) => {

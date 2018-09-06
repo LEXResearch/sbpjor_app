@@ -3,8 +3,17 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { Storage } from '@ionic/storage';
+
+import { Http, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
+
 import { HomePage } from '../pages/home/home';
 import { SearchPage } from '../pages/search/search';
+import { FavoritePage } from '../pages/favorite/favorite';
+import { TalkUsPage } from '../pages/talk-us/talk-us';
+import { AboutPage } from '../pages/about/about';
+
 
 export interface PageInterface {
   title: string;
@@ -25,14 +34,34 @@ export class MyApp {
     { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
     { title: 'Cronograma', name: 'HomePage', component: HomePage, icon: 'custom-cronograma' },
     { title: 'Pesquisa', name: 'SearchPage', component: SearchPage,   icon: 'custom-pesquisa' },
-    { title: 'Trabalhos Favoritos', name: 'SearchPage', component: SearchPage,   icon: 'custom-favoritos' },
-    { title: 'Fale Conosco', name: 'SearchPage', component: SearchPage,   icon: 'custom-contato' },
+    { title: 'Trabalhos Favoritos', name: 'Favorite', component: FavoritePage,   icon: 'custom-favoritos' },
+    { title: 'Fale Conosco', name: 'TalkUs', component: TalkUsPage,   icon: 'custom-contato' },
     { title: 'Meus Dados', name: 'SearchPage', component: SearchPage,   icon: 'custom-configuracao' },
-    { title: 'Infos', name: 'SearchPage', component: SearchPage,   icon: 'custom-informacao' },
+    { title: 'Infos', name: 'About', component: AboutPage,   icon: 'custom-informacao' },
   ]
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar,
+    public splashScreen: SplashScreen, private storage: Storage,
+    public http: Http) {
     this.initializeApp();
+    this.checkActivities(storage);
+  }
+  // test if data is already in storage, otherwise call api
+  checkActivities(storage){
+
+    var headers = new Headers();
+    headers.append('Access-Control-Allow-Origin' , '*');
+    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+    headers.append('Accept','application/json');
+    headers.append('content-type','application/json');
+    let options = new RequestOptions({ headers:headers});
+
+    if(storage.ready()){
+      this.http.get('http://sbpjor.org.br/api/v1/conferencia', options).map(res => res.json()).subscribe(data => {
+          console.log(data);
+          storage.set('cronograma', data);
+      });
+    }
   }
 
   initializeApp() {
@@ -41,6 +70,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
     });
   }
 

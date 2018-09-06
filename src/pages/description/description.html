@@ -1,10 +1,10 @@
 <ion-header no-border>
+  <ion-navbar color="white">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
   <div class="header" [ngStyle]=selectedItem.colorDesc padding >
-    <div class="back" margin-bottom>
-      <button ion-button icon-only clear (click)="backButton()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </button>
-    </div>
     <div class="title">{{ selectedItem.title }}</div>
     <div class="hora" margin-top>
       <ion-icon class="icons" name="watch"></ion-icon>

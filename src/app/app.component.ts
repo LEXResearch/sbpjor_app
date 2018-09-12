@@ -48,16 +48,15 @@ export class MyApp {
   }
   // test if data is already in storage, otherwise call api
   checkActivities(storage){
-
-    var headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
+    let headers = new Headers({
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json'
+    });
     let options = new RequestOptions({ headers:headers});
 
     if(storage.ready()){
-      this.http.get('http://sbpjor.org.br/api/v1/conferencia', options).map(res => res.json()).subscribe(data => {
+      this.http.get("/conferencia", options).map(res => res.json()).subscribe(data => {
           console.log(data);
           storage.set('cronograma', data);
       });

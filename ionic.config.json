@@ -3,5 +3,11 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path":"/conferencia",
+      "proxyUrl": "http://sbpjor.org.br/api/v1/conferencia"
+    }
+  ]
 }

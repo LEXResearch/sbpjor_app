@@ -29,6 +29,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
+  basepath = "/conferencia"
 
   appPages: PageInterface[] = [
     { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
@@ -44,21 +45,21 @@ export class MyApp {
     public splashScreen: SplashScreen, private storage: Storage,
     public http: Http) {
     this.initializeApp();
-    this.checkActivities(storage);
+    this.checkActivities();
   }
   // test if data is already in storage, otherwise call api
-  checkActivities(storage){
-    let headers = new Headers({
-      'content-type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Accept': 'application/json'
-    });
+  checkActivities(){
+    let headers = new Headers();
+    headers.append('Access-Control-Allow-Origin' , '*');
+    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+    headers.append('Accept','application/json');
+    headers.append('content-type','application/json');
     let options = new RequestOptions({ headers:headers});
 
-    if(storage.ready()){
-      this.http.get("/conferencia", options).map(res => res.json()).subscribe(data => {
+    if(this.storage.ready()){
+      this.http.get("http://sbpjor.org.br/api/v1/conferencia", options).map(res => res.json()).subscribe(data => {
           console.log(data);
-          storage.set('cronograma', data);
+          this.storage.set('cronograma', data);
       });
     }
   }

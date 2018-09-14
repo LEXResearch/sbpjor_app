@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Storage } from '@ionic/storage';
@@ -26,9 +26,19 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController, public http: Http, public storage: Storage) {
-    storage.get('cronograma').then((val) => {
-      this.posts = val;
+    let headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+    headers.append('Accept','application/json');
+    headers.append('content-type','application/json');
+    let options = new RequestOptions({ headers:headers});
+    this.http.get("http://sbpjor.org.br/api/v1/conferencia", options).map(res => res.json()).subscribe(data => {
+        console.log(data);
+        this.posts = data;
     });
+    // storage.get('cronograma').then((val) => {
+    //   this.posts = val;
+    // });
 
     this.toggled = false;
     this.items = [

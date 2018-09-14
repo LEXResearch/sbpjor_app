@@ -13,5 +13,5 @@ export class ContentServiceProvider {
   constructor(public http: HttpClient) {
     console.log('Hello ContentServiceProvider Provider');
   }
-  
+
 }

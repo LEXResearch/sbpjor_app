@@ -26,29 +26,27 @@
 
 
   <div [ngSwitch]="selectedDay">
-
     <ion-list *ngSwitchCase="0" no-lines>
-      {{ posts }}
-      <!-- <ion-item *ngFor="let p of posts" margin-top >
+      <ion-item *ngFor="let p of posts" margin-top >
         <ion-row>
             <ion-col col-3>
               <div class="hora" margin-left>
-                {{ p.titulo }}
+                
               </div>
             </ion-col>
             <ion-col col-7>
 
                 <div class="description">
-                  {{ p.data }}
+                  {{ p }}
                 </div>
                 <br>
-
+                <!-- <button *ngIf="item.mesas != null" outline ion-button (click)="itemTapped($event, item)">Ver Mesas</button> -->
 
             </ion-col>
 
 
         </ion-row>
-      </ion-item> -->
+      </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="1" no-lines>
       <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>

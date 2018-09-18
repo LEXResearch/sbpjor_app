@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -35,7 +35,7 @@ import { AboutPage } from '../pages/about/about';
         { component: SearchPage, name: 'SearchPage', segment: 'search' },
       ]
     }),
-    HttpModule,
+    HttpClientModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],

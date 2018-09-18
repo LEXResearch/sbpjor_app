@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
 
-import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { HomePage } from '../pages/home/home';
@@ -42,26 +41,18 @@ export class MyApp {
   ]
 
   constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, private storage: Storage,
-    public http: Http) {
+    public splashScreen: SplashScreen, private storage: Storage) {
     this.initializeApp();
     this.checkActivities();
   }
   // test if data is already in storage, otherwise call api
   checkActivities(){
-    let headers = new Headers();
-    headers.append('Access-Control-Allow-Origin' , '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    let options = new RequestOptions({ headers:headers});
-
-    if(this.storage.ready()){
-      this.http.get("http://sbpjor.org.br/api/v1/conferencia", options).map(res => res.json()).subscribe(data => {
-          console.log(data);
-          this.storage.set('cronograma', data);
-      });
-    }
+    // let headers = new Headers();
+    // headers.append('Access-Control-Allow-Origin', '*');
+    // headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+    // headers.append('Accept','application/json');
+    // headers.append('content-type','application/json');
+    // let options = new RequestOptions({ headers:headers});
   }
 
   initializeApp() {

@@ -2,8 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 import { Storage } from '@ionic/storage';
 
@@ -21,25 +22,12 @@ export class HomePage {
   items: Array<{open: boolean, colorDesc: any, color: any, hora: string, title: string, location: string, description: string, mesas: any }>;
   days: any = [];
   toggled: boolean = false;
-
+  data: Observable<any>;
   posts: any;
 
 
-  constructor(public navCtrl: NavController, public http: Http, public storage: Storage) {
-    let headers = new Headers();
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    headers.append('Accept','application/json');
-    headers.append('content-type','application/json');
-    let options = new RequestOptions({ headers:headers});
-    this.http.get("http://sbpjor.org.br/api/v1/conferencia", options).map(res => res.json()).subscribe(data => {
-        console.log(data);
-        this.posts = data;
-    });
-    // storage.get('cronograma').then((val) => {
-    //   this.posts = val;
-    // });
-
+  constructor(public navCtrl: NavController, public http: HttpClient, public storage: Storage) {
+    this.getData();
     this.toggled = false;
     this.items = [
         {
@@ -115,6 +103,13 @@ export class HomePage {
   itemTapped(event, item){
     this.navCtrl.push(DescriptionPage, {
       item: item
+    });
+  }
+  getData(){
+    this.data = this.http.get('/apiconferencia');
+    this.data.subscribe(data =>{
+      posts = data;
+      console.log(data);
     });
   }
 }

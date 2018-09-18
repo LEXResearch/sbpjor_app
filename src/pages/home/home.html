@@ -26,6 +26,7 @@
 
 
   <div [ngSwitch]="selectedDay">
+  
     <ion-list *ngSwitchCase="0" no-lines>
       <ion-item *ngFor="let p of posts" margin-top >
         <ion-row>
@@ -37,7 +38,7 @@
             <ion-col col-7>
 
                 <div class="description">
-                  {{ p }}
+                  {{ p.titulo }}
                 </div>
                 <br>
                 <!-- <button *ngIf="item.mesas != null" outline ion-button (click)="itemTapped($event, item)">Ver Mesas</button> -->

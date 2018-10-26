@@ -22,6 +22,15 @@ export interface PageInterface {
   icon: string;
 }
 
+export interface TrabalhosInterface {
+	numero: number;
+	titulo: string; 
+	url: string;
+	autores: string;
+	favorito: boolean;
+	evento: any;
+}
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -30,11 +39,12 @@ export class MyApp {
 
   rootPage = HomePage;
 
-  trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: any }> = [];
+  trabalhos: Array<TrabalhosInterface>;
 
   cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, cor_hex: any, cor_nome: any, cor_background: any,
     hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
-    trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}> = [];
+    trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}>;
+	
   //papers: Array<any> = [];
   appPages: PageInterface[] = [
     { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
@@ -58,7 +68,7 @@ export class MyApp {
       storage.set('cronograma', this.cronograma);
     });
 
-    this.http.get('https://sbpjor-lex.herokuapp.com/trabalhos/?format=json').subscribe(data =>{
+    this.http.get<TrabalhosInterface[]>('https://sbpjor-lex.herokuapp.com/trabalhos/?format=json').subscribe(data =>{
       console.log(data);
       this.trabalhos = data;
       storage.set('trabalhos', this.trabalhos);

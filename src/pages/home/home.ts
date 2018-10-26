@@ -22,11 +22,11 @@ export class HomePage {
   toggled: boolean = false;
   //posts: Array<any> = [];
   selectedDay: number = 0;
-  trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }>;
+  trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }> = [];
 
   cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, cor_hex: any, cor_nome: any, cor_background: any,
     hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
-    trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}>
+    trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}> = [];
   // papers contem todos os Trabalhos, aqui diz se é favorito ou não
   // cronograma contem o cronograma baseado nos papers
 
@@ -34,7 +34,6 @@ export class HomePage {
     this.cronograma = [];
     storage.get('cronograma').then((val) => {
       this.cronograma = val;
-      console.log(this.cronograma);
     });
   }
 

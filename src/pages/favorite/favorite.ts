@@ -14,7 +14,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'favorite.html',
 })
 export class FavoritePage {
-  trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }>;
+  trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }>;
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
     this.trabalhos = [];
     this.storage.get('trabalhos').then((val) => {

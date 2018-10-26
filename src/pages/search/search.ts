@@ -1,8 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, Select } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Select, Platform } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
+
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+
 /**
  * Generated class for the SearchPage page.
  *
@@ -25,14 +30,11 @@ export class SearchPage {
   eventsOptions: any;
 
 
-  trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }> = [];
-  trabalhosFromMesa: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }> = [];
-  cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, colorHEX: any, colorName: any, color: any,
-    hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
-    trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}> = [];
+  trabalhos: Array<any> = [];
+  cronograma: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage,
-  public modal: ModalController, public http: HttpClient) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public platform: Platform,
+  public modal: ModalController, public http: HttpClient, private file: File, private transfer: FileTransfer, private document: DocumentViewer) {
     this.cronograma = [];
     this.trabalhos = [];
     this.eventsOptions = [
@@ -80,29 +82,39 @@ export class SearchPage {
     if (index > -1) {
       this.trabalhos[index].favorito = !this.trabalhos[index].favorito;
     } else {
-      if(this.mesa != null) {
-        const index = this.mesa.trabalhos.indexOf(item, 0);
-        if (index > -1) {
-          this.mesa.trabalhos[index].favorito = !this.mesa.trabalhos[index].favorito;
-          for(var x in this.mesa.trabalhos){
-            this.trabalhos.map((trab) => {
-              if(trab.number == this.mesa.trabalhos[x].number){
-                trab.favorito = this.mesa.trabalhos[x].favorito;
-                console.log(trab.favorito);
-              }
-            });
-          }
-        }
-      }
+		if(this.mesa != null) {
+			const index = this.mesa.trabalhos.indexOf(item, 0);
+			if (index > -1) {
+				this.mesa.trabalhos[index].favorito = !this.mesa.trabalhos[index].favorito;
+				this.trabalhos.map((trab) => {
+					if(trab.numero == this.mesa.trabalhos[index].numero){
+						trab.favorito = this.mesa.trabalhos[index].favorito;
+					}
+				});
+			}
+		}
+      
     }
     this.storage.set('trabalhos', this.trabalhos);
   }
+	
 
-  downloadItem(item){
-    this.http.get(item.url).subscribe(data =>{
-      console.log(data);
-    });
-  }
+	downloadItem(item) {
+		let path = null;
+	 
+		if (this.platform.is('ios')) {
+		  path = this.file.documentsDirectory;
+		} else if (this.platform.is('android')) {
+		  path = this.file.dataDirectory;
+		}
+	 
+		const transfer = this.transfer.create();
+		
+		transfer.download('https://devdactic.com/html/5-simple-hacks-LBT.pdf', path + 'file.pdf').then(entry => {
+		  let url = entry.toURL();
+		  this.document.viewDocument(url, 'application/pdf', {});
+		});
+	}
 
   onInput($event) {
     //console.log(this.searchInput);

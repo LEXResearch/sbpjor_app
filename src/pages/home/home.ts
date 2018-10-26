@@ -1,8 +1,9 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
-
 import { HttpClient } from '@angular/common/http';
+
+//import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 import { Storage } from '@ionic/storage';
@@ -16,80 +17,41 @@ import { DescriptionPage } from '../description/description';
 export class HomePage {
   @ViewChild(Slides) slides: Slides;
 
-  selectedDay: number = 0;
   expandHeight: number = 500;
-  items: Array<{open: boolean, colorDesc: any, color: any, hora: string, title: string, location: string, description: string, mesas: any }>;
-  days: any = [];
+  //items: Array<{open: boolean, colorHEX: any, colorName: any, color: any, hora: string, title: string, location: string, description: string, mesas: any }>;
   toggled: boolean = false;
-  posts: Array = [];
+  //posts: Array<any> = [];
+  selectedDay: number = 0;
+  trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }>;
 
+  cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, cor_hex: any, cor_nome: any, cor_background: any,
+    hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
+    trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}>
+  // papers contem todos os Trabalhos, aqui diz se é favorito ou não
+  // cronograma contem o cronograma baseado nos papers
 
-  constructor(public navCtrl: NavController, public http: HttpClient, public storage: Storage) {
-    //this.getData();
-    this.toggled = false;
-    this.items = [
-        {
-          open: false,
-          colorDesc: {'background': '#ffe180'},
-          color: {'background': 'linear-gradient(90deg, #ffe180 15px, #FFFFFF 15px)'},
-          hora: "9h30",
-          title: "Abertura",
-          location: "Auditório Principal",
-          description: "Evento de abertura do SBPJor",
-          mesas: null,
-        },
-        {
-          open: false,
-          colorDesc: {'background': '#ffb98a'},
-          color: {'background': 'linear-gradient(90deg, #ffb98a 15px, #FFFFFF 15px)'},
-          hora: "10h30",
-          title: "Sessão de Trabalhos 1",
-          location: "Sala 1000",
-          description: "Sessão de apresentação de trabalhos",
-          mesas: [{ number: '5', title: "Questões teórico/metodológicas nas pesquisas sobre identidade e trabalho dos jornalistas", coord: true, trabs: [ {title: 'trab1', url: 'link bang', author: 'jaum'}] },
-                  {number: '4',title: "Outra mesa", coord: true, trabs: [ {title: 'Trabalho 1', url: 'link bang', author: 'Fulano'}, {title: 'Trabalho 2', url: 'link bang', author: 'Bertrano'}]},
-                  {number: '6',title: "Questões teórico/metodológicas nas pesquisas sobre identidade e trabalho dos jornalistas", coord: false, trabs: [ {title: 'trab1', url: 'link bang', author: 'jaum'}]}]
-        },
-        {
-          open: false,
-          colorDesc: {'background': '#f9ab70'},
-          color: {'background': 'linear-gradient(90deg, #f9ab70 15px, #FFFFFF 15px)'},
-          hora: "13h30",
-          title: "Sessão de Trabalhos 2",
-          location: "Sala 1001",
-          description: "Grande descrição",
-          mesas: [{ number: '1', title: "Titutlo 1", coord: true }, {number: '7',title: "Tit 2", coord: true }, {number: '8',title: "tittt3", coord: false}]
-        },
-        {
-          open: false,
-          colorDesc: {'background': '#f291a1'},
-          color: {'background': 'linear-gradient(90deg, #f291a1 15px, #FFFFFF 15px)'},
-          hora: "14h30",
-          title: "Mesa Redonda",
-          location: "Sala 1002",
-          description: "Grande descrição",
-          mesas: [{ number: '2', title: "Titutlo 1", coord: true }, {number: '11',title: "Tit 2", coord: true }, {number: '12',title: "tittt3", coord: false}]
-        },
-        {
-          open: false,
-          colorDesc: {'background': '#c098ea'},
-          color: {'background': 'linear-gradient(90deg, #c098ea 15px, #FFFFFF 15px)'},
-          hora: "16h30",
-          title: "Sessão de Trabalhos 3",
-          location: "Sala 1003",
-          description: "Grande descrição",
-          mesas: [{ number: '3', title: "Titutlo 1", coord: true }, {number: '13',title: "Tit 2", coord: true }, {number: '14',title: "tittt3", coord: false}]
-        }
-    ];
+  constructor(public navCtrl: NavController, public storage: Storage, public http: HttpClient) {
+    this.cronograma = [];
+    storage.get('cronograma').then((val) => {
+      this.cronograma = val;
+      console.log(this.cronograma);
+    });
   }
+
   toggle() {
     this.toggled = !this.toggled;
   }
+
   slideChanged() {
     this.selectedDay = this.slides.getActiveIndex();
   }
+
+  cor(atividade){
+    return {'background': 'linear-gradient(90deg, '+ atividade.cor_hex +' 15px, #FFFFFF 15px)'};
+  }
+
   expandItem(item){
-        this.items.map((listItem) => {
+        this.cronograma.map((listItem) => {
             if(item == listItem){
                 listItem.open = !listItem.open;
             } else {
@@ -98,17 +60,20 @@ export class HomePage {
             return listItem;
         });
   }
-  itemTapped(event, item){
+
+  itemTapped(event, atividade){
     this.navCtrl.push(DescriptionPage, {
-      item: item
+      atividade: atividade
     });
   }
-  ngOnInit(){
-    this.http.get('http://sbpjor.org.br/api/v1/conferencia').subscribe(data =>{
-	  for (var x in data){
-		data.hasOwnProperty(x) && this.posts.push(data[x])
-      }
-      console.log(this.posts);
+
+  hora(item){
+    return item.hora.split('T')[1].split(":")[0];
+  }
+
+  cronogramaByDay(day){
+    return this.cronograma.filter((item) => {
+       return item.data.split('-')[2] == day;
     });
   }
 }

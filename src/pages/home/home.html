@@ -26,81 +26,85 @@
 
 
   <div [ngSwitch]="selectedDay">
-  
+
     <ion-list *ngSwitchCase="0" no-lines>
-      <ion-item *ngFor="let p of posts" margin-top >
+      <ion-item *ngFor="let atividade of cronogramaByDay(7)" margin-top [ngStyle]=cor(atividade)>
         <ion-row>
             <ion-col col-3>
               <div class="hora" margin-left>
-                
+                {{ hora(atividade) }}h
               </div>
             </ion-col>
             <ion-col col-7>
-
-                <div class="description">
-                  {{ p.titulo }}
-                </div>
+              <div [ngClass]="{'title-active': atividade.open, 'title': !atividade.open}">{{ atividade.titulo }}</div>
+              <div [ngClass]="{'location-active': atividade.open, 'location': !atividade.open}"><ion-icon name="compass"></ion-icon> {{ atividade.local }}</div>
+              <div text-wrap [ngClass]="{'section-active': atividade.open, 'section': !atividade.open}" class="description">
                 <br>
-                <!-- <button *ngIf="item.mesas != null" outline ion-button (click)="itemTapped($event, item)">Ver Mesas</button> -->
-
+                {{ atividade.descricao }}
+                <br><br>
+                <button *ngIf="atividade.mesas != null "outline ion-button (click)="itemTapped($event, atividade)"> Ver Mesas </button>
+              </div>
             </ion-col>
-
-
+            <ion-col col-2>
+              <button ion-button outline (click)="expandItem(atividade)" class="my-button">
+                <ion-icon *ngIf="!atividade.open" name="add"></ion-icon>
+                <ion-icon *ngIf="atividade.open" name="remove"></ion-icon>
+              </button>
+            </ion-col>
         </ion-row>
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="1" no-lines>
-      <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>
+      <ion-item *ngFor="let atividade of cronogramaByDay(8)" margin-top [ngStyle]=atividade.background>
         <ion-row>
             <ion-col col-3>
-              <div class="hora" margin-left>
-                {{ item.hora }}
+              <div class="hora" margin-left >
+                {{ hora(atividade) }}h
               </div>
             </ion-col>
             <ion-col col-7>
-              <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
-              <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
-              <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
+              <div [ngClass]="{'title-active': atividade.open, 'title': !atividade.open}">{{ atividade.titulo }}</div>
+              <div [ngClass]="{'location-active': atividade.open, 'location': !atividade.open}"><ion-icon name="compass"></ion-icon> {{ atividade.local }}</div>
+              <div text-wrap [ngClass]="{'section-active': atividade.open, 'section': !atividade.open}" class="description">
                 <br>
-                {{ item.description }}
-                <br>
-                <button *ngIf="item.mesas != null " outline ion-button (click)="itemTapped($event, item)">  Ver Mesas </button>
+                {{ atividade.descricao }}
+                <br><br>
+                <button *ngIf="atividade.mesas != null "outline ion-button (click)="itemTapped($event, atividade)"> Ver Mesas </button>
               </div>
             </ion-col>
             <ion-col col-2>
-              <button ion-button outline (click)="expandItem(item)" class="my-button">
-                <ion-icon *ngIf="!item.open" name="add"></ion-icon>
-                <ion-icon *ngIf="item.open" name="remove"></ion-icon>
+              <button ion-button outline (click)="expandItem(atividade)" class="my-button">
+                <ion-icon *ngIf="!atividade.open" name="add"></ion-icon>
+                <ion-icon *ngIf="atividade.open" name="remove"></ion-icon>
               </button>
             </ion-col>
         </ion-row>
       </ion-item>
     </ion-list>
     <ion-list *ngSwitchCase="2" no-lines>
-      <ion-item *ngFor="let item of items" margin-top [ngStyle]=item.color>
+      <ion-item *ngFor="let atividade of cronogramaByDay(9)" margin-top [ngStyle]=atividade.cor_background>
         <ion-row>
             <ion-col col-3>
               <div class="hora" margin-left>
-                {{ item.hora }}
+                {{ hora(atividade) }}h
               </div>
             </ion-col>
             <ion-col col-7>
-              <div [ngClass]="{'title-active': item.open, 'title': !item.open}">{{ item.title }}</div>
-              <div [ngClass]="{'location-active': item.open, 'location': !item.open}"><ion-icon name="compass"></ion-icon> {{ item.location }}</div>
-              <div text-wrap [ngClass]="{'section-active': item.open, 'section': !item.open}">
+              <div [ngClass]="{'title-active': atividade.open, 'title': !atividade.open}">{{ atividade.titulo }}</div>
+              <div [ngClass]="{'location-active': atividade.open, 'location': !atividade.open}"><ion-icon name="compass"></ion-icon> {{ atividade.local }}</div>
+              <div text-wrap [ngClass]="{'section-active': atividade.open, 'section': !atividade.open}" class="description">
                 <br>
-                {{ item.description }}
-                <br>
-                <button *ngIf="item.mesas != null " outline ion-button (click)="itemTapped($event, item)">  Ver Mesas </button>
+                {{ atividade.descricao }}
+                <br><br>
+                <button *ngIf="atividade.mesas != null "outline ion-button (click)="itemTapped($event, atividade)"> Ver Mesas </button>
               </div>
             </ion-col>
             <ion-col col-2>
-              <button ion-button outline (click)="expandItem(item)" class="my-button">
-                <ion-icon *ngIf="!item.open"name="add"></ion-icon>
-                <ion-icon *ngIf="item.open" name="remove"></ion-icon>
+              <button ion-button outline (click)="expandItem(atividade)" class="my-button">
+                <ion-icon *ngIf="!atividade.open" name="add"></ion-icon>
+                <ion-icon *ngIf="atividade.open" name="remove"></ion-icon>
               </button>
             </ion-col>
-
         </ion-row>
       </ion-item>
     </ion-list>

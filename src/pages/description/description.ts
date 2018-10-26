@@ -19,10 +19,12 @@ export class DescriptionPage {
   mesasMode: string = "coordenadas";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.selectedItem = navParams.get('item');
+    this.selectedItem = navParams.get('atividade');
   }
   mesasFilter(b){
-    return this.selectedItem.mesas.filter(x => x.coord == b);
+    return this.selectedItem.mesas.filter((mesa) => {
+      return mesa.coordenada == b;
+    });
   }
   backButton(){
     this.navCtrl.pop();
@@ -31,5 +33,11 @@ export class DescriptionPage {
     this.navCtrl.push(SearchPage, {
       mesa: mesa
     })
+  }
+  hora(data){
+    return data.split("T")[1].split(":")[0];
+  }
+  min(data){
+    return data.split("T")[1].split(":")[1];
   }
 }

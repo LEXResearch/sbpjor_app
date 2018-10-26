@@ -8,10 +8,22 @@ page-search {
     margin-right: 10px;
   }
   .title{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
   }
   .author{
-
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+  .my-button{
+    border: 0px;
   }
 }

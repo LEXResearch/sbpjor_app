@@ -1,18 +1,18 @@
 <ion-header no-border>
-  <ion-navbar color="white">
+  <ion-navbar [color]="selectedItem.cor_nome">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
-  <div class="header" [ngStyle]=selectedItem.colorDesc padding >
-    <div class="title">{{ selectedItem.title }}</div>
+  <div class="header" [ngStyle]="{'background-color': selectedItem.cor_hex }" padding >
+    <div class="title">{{ selectedItem.titulo }}</div>
     <div class="hora" margin-top>
       <ion-icon class="icons" name="watch"></ion-icon>
-      {{ selectedItem.hora }}
+      {{ hora(selectedItem.hora) }}h{{ min(selectedItem.hora)}}m
     </div>
     <div class="local">
       <ion-icon class="icons" name="pin"></ion-icon>
-      {{ selectedItem.location }}
+      {{ selectedItem.local }}
     </div>
   </div>
   <div>
@@ -32,10 +32,10 @@
       <ion-item *ngFor="let mesa of mesasFilter(true)">
         <div>
           <div class="numero" margin-bottom>
-            MESA {{ mesa.number }}
+            MESA {{ mesa.numero }}
           </div>
           <div class="name" text-wrap>
-            {{ mesa.title }}
+            {{ mesa.titulo }}
           </div>
           <div class="download" margin-top>
             <button ion-button icon-start outline text-center padding (click)="pushButton($event, mesa)">
@@ -50,10 +50,10 @@
       <ion-item *ngFor="let mesa of mesasFilter(false)">
         <div>
           <div class="numero" margin-bottom>
-            MESA {{ mesa.number }}
+            MESA {{ mesa.numero }}
           </div>
           <div class="name" text-wrap>
-            {{ mesa.title }}
+            {{ mesa.titulo }}
           </div>
           <div class="download" margin-top>
             <button ion-button icon-start outline text-center padding (click)="pushButton($event, mesa)">

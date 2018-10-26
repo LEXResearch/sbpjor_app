@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 
@@ -27,9 +28,14 @@ export interface PageInterface {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
-  basepath = "/conferencia"
+  rootPage = HomePage;
 
+  trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean, evento: any }> = [];
+
+  cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, cor_hex: any, cor_nome: any, cor_background: any,
+    hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
+    trabalhos: Array<{id: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}> = [];
+  //papers: Array<any> = [];
   appPages: PageInterface[] = [
     { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
     { title: 'Cronograma', name: 'HomePage', component: HomePage, icon: 'custom-cronograma' },
@@ -41,18 +47,23 @@ export class MyApp {
   ]
 
   constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, private storage: Storage) {
+    public splashScreen: SplashScreen, public http: HttpClient, private storage: Storage) {
     this.initializeApp();
-    this.checkActivities();
-  }
-  // test if data is already in storage, otherwise call api
-  checkActivities(){
-    // let headers = new Headers();
-    // headers.append('Access-Control-Allow-Origin', '*');
-    // headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
-    // headers.append('Accept','application/json');
-    // headers.append('content-type','application/json');
-    // let options = new RequestOptions({ headers:headers});
+
+    this.cronograma = [];
+    this.trabalhos = [];
+
+    this.http.get('https://sbpjor-lex.herokuapp.com/cronogramas/?format=json').subscribe(data =>{
+      this.cronograma = data[0].atividades;
+      storage.set('cronograma', this.cronograma);
+    });
+
+    this.http.get('https://sbpjor-lex.herokuapp.com/trabalhos/?format=json').subscribe(data =>{
+      console.log(data);
+      this.trabalhos = data;
+      storage.set('trabalhos', this.trabalhos);
+    });
+
   }
 
   initializeApp() {
@@ -61,7 +72,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
     });
   }
 

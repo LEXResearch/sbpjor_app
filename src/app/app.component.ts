@@ -24,7 +24,7 @@ export interface PageInterface {
 
 export interface TrabalhosInterface {
 	numero: number;
-	titulo: string; 
+	titulo: string;
 	url: string;
 	autores: string;
 	favorito: boolean;
@@ -44,7 +44,7 @@ export class MyApp {
   cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, cor_hex: any, cor_nome: any, cor_background: any,
     hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
     trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}>;
-	
+
   //papers: Array<any> = [];
   appPages: PageInterface[] = [
     { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
@@ -69,7 +69,7 @@ export class MyApp {
     });
 
     this.http.get<TrabalhosInterface[]>('https://sbpjor-lex.herokuapp.com/trabalhos/?format=json').subscribe(data =>{
-      console.log(data);
+
       this.trabalhos = data;
       storage.set('trabalhos', this.trabalhos);
     });

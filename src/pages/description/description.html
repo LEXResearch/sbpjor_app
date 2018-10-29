@@ -17,11 +17,11 @@
   </div>
   <div>
     <ion-segment [(ngModel)]="mesasMode" color="primary">
-      <ion-segment-button value="coordenadas">
-        Mesas Coordenadas
-      </ion-segment-button>
       <ion-segment-button value="livres">
         Mesas Livres
+      </ion-segment-button>
+      <ion-segment-button value="coordenadas">
+        Mesas Coordenadas
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -36,6 +36,10 @@
           </div>
           <div class="name" text-wrap>
             {{ mesa.titulo }}
+          </div>
+          <br>
+          <div class="descricao">
+            {{ mesa.descricao }}
           </div>
           <div class="download" margin-top>
             <button ion-button icon-start outline text-center padding (click)="pushButton($event, mesa)">
@@ -54,6 +58,10 @@
           </div>
           <div class="name" text-wrap>
             {{ mesa.titulo }}
+          </div>
+          <br>
+          <div class="descricao">
+            {{ mesa.descricao }}
           </div>
           <div class="download" margin-top>
             <button ion-button icon-start outline text-center padding (click)="pushButton($event, mesa)">

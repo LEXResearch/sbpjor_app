@@ -5,8 +5,8 @@ import { Storage } from '@ionic/storage';
 import { HttpClient } from '@angular/common/http';
 
 import { File } from '@ionic-native/file';
-import { FileTransfer } from '@ionic-native/file-transfer';
-import { DocumentViewer } from '@ionic-native/document-viewer';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+//import { DocumentViewer } from '@ionic-native/document-viewer';
 
 /**
  * Generated class for the SearchPage page.
@@ -22,7 +22,7 @@ import { DocumentViewer } from '@ionic-native/document-viewer';
 export class SearchPage {
   @ViewChild(Select) select: Select;
 
-  searchMode: string = "autor";
+  searchMode: string = "geral";
   searchInput: string;
   mesa: any;
   filterItems: any;
@@ -33,8 +33,10 @@ export class SearchPage {
   trabalhos: Array<any> = [];
   cronograma: Array<any> = [];
 
+  fileTransfer: FileTransferObject;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public platform: Platform,
-  public modal: ModalController, public http: HttpClient, private file: File, private transfer: FileTransfer, private document: DocumentViewer) {
+  public modal: ModalController, public http: HttpClient, private file: File, private transfer: FileTransfer) {
     this.cronograma = [];
     this.trabalhos = [];
     this.eventsOptions = [
@@ -67,10 +69,6 @@ export class SearchPage {
         });
       }
     });
-
-
-
-
   }
 
   openModal() {
@@ -93,28 +91,24 @@ export class SearchPage {
 				});
 			}
 		}
-      
+
     }
     this.storage.set('trabalhos', this.trabalhos);
   }
-	
-
-	downloadItem(item) {
-		let path = null;
-	 
-		if (this.platform.is('ios')) {
-		  path = this.file.documentsDirectory;
-		} else if (this.platform.is('android')) {
-		  path = this.file.dataDirectory;
-		}
-	 
-		const transfer = this.transfer.create();
-		
-		transfer.download('https://devdactic.com/html/5-simple-hacks-LBT.pdf', path + 'file.pdf').then(entry => {
-		  let url = entry.toURL();
-		  this.document.viewDocument(url, 'application/pdf', {});
-		});
-	}
+  download(item) {
+      //here encoding path as encodeURI() format.
+      let url = encodeURI(item.url);
+      //here initializing object.
+      this.fileTransfer = this.transfer.create();
+      // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.
+      fileTransfer.download(url, this.file.externalRootDirectory + "trabalho.pdf", true).then((entry) => {
+          //here logging our success downloaded file path in mobile.
+          console.log('download completed: ' + entry.toURL());
+      }, (error) => {
+          //here logging our error its easier to find out what type of error occured.
+          console.log('download failed: ' + error);
+      });
+  }
 
   onInput($event) {
     //console.log(this.searchInput);

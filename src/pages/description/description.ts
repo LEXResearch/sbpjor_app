@@ -16,7 +16,7 @@ import { SearchPage } from '../search/search';
 })
 export class DescriptionPage {
   selectedItem: any;
-  mesasMode: string = "coordenadas";
+  mesasMode: string = "livres";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.selectedItem = navParams.get('atividade');

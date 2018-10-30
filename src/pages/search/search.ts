@@ -1,12 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, Select, Platform } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Select, Platform, AlertController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
-import { HttpClient } from '@angular/common/http';
 
-import { File } from '@ionic-native/file';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-//import { DocumentViewer } from '@ionic-native/document-viewer';
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Generated class for the SearchPage page.
@@ -28,15 +25,13 @@ export class SearchPage {
   filterItems: any;
   selectorOpen: false;
   eventsOptions: any;
-
-
+  
   trabalhos: Array<any> = [];
   cronograma: Array<any> = [];
 
-  fileTransfer: FileTransferObject;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public platform: Platform,
-  public modal: ModalController, public http: HttpClient, private file: File, private transfer: FileTransfer) {
+  public modal: ModalController, public alertCtrl: AlertController, public http: HttpClient) {
     this.cronograma = [];
     this.trabalhos = [];
     this.eventsOptions = [
@@ -95,21 +90,20 @@ export class SearchPage {
     }
     this.storage.set('trabalhos', this.trabalhos);
   }
+  
   download(item) {
-      //here encoding path as encodeURI() format.
-      let url = encodeURI(item.url);
-      //here initializing object.
-      this.fileTransfer = this.transfer.create();
-      // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.
-      fileTransfer.download(url, this.file.externalRootDirectory + "trabalho.pdf", true).then((entry) => {
-          //here logging our success downloaded file path in mobile.
-          console.log('download completed: ' + entry.toURL());
-      }, (error) => {
-          //here logging our error its easier to find out what type of error occured.
-          console.log('download failed: ' + error);
-      });
-  }
+	/*
+	this.http.get(item.url, { headers: 
+	{ 
+		'Content-Type' : 'octet-stream', 
+		'Content-Disposition' : 'attachment; filename="file.pdf"',
+		'Content-Transfer-Encoding' : 'binary'
+	}}).subscribe(data =>{
+		console.log(data);
+    }); */
 
+  }
+	
   onInput($event) {
     //console.log(this.searchInput);
     switch (this.searchMode) {

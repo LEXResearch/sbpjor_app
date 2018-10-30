@@ -34,7 +34,7 @@ export class HomePage {
     this.cronograma = [];
     storage.get('cronograma').then((val) => {
       this.cronograma = val;
-      console.log(this.cronograma.sort((item1, item2) => {
+      this.cronograma.sort((item1, item2) => {
         var h1 = item1.hora.split('T')[1].split(":")[0];
         var h2 = item2.hora.split('T')[1].split(":")[0];
         if (h1 > h2) {
@@ -44,7 +44,7 @@ export class HomePage {
             return -1;
         }
         return 0;
-      }));
+      });
     });
   }
 

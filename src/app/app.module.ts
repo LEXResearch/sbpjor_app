@@ -7,10 +7,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { File } from '@ionic-native/file';
-import { FileTransfer } from '@ionic-native/file-transfer';
-import { DocumentViewer } from '@ionic-native/document-viewer';
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SearchPage } from '../pages/search/search';
@@ -40,7 +36,7 @@ import { AboutPage } from '../pages/about/about';
       ]
     }),
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,10 +52,6 @@ import { AboutPage } from '../pages/about/about';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-	File,
-	FileTransfer,
-	DocumentViewer
-    //ContentServiceProvider
   ]
 })
 export class AppModule {}

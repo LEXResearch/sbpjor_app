@@ -6,8 +6,9 @@
   "type": "ionic-angular",
   "proxies": [
     {
-      "path":"/apiconferencia",
+      "path": "/apiconferencia",
       "proxyUrl": "http://sbpjor.org.br/api/v1/conferencia"
     }
-  ]
+  ],
+  "pro_id": "ba413659"
 }

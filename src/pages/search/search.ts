@@ -5,6 +5,8 @@ import { Storage } from '@ionic/storage';
 
 import { HttpClient } from '@angular/common/http';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 /**
  * Generated class for the SearchPage page.
  *
@@ -25,13 +27,13 @@ export class SearchPage {
   filterItems: any;
   selectorOpen: false;
   eventsOptions: any;
-  
+
   trabalhos: Array<any> = [];
   cronograma: Array<any> = [];
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public platform: Platform,
-  public modal: ModalController, public alertCtrl: AlertController, public http: HttpClient) {
+  public modal: ModalController, public alertCtrl: AlertController, public http: HttpClient, private iab: InAppBrowser) {
     this.cronograma = [];
     this.trabalhos = [];
     this.eventsOptions = [
@@ -47,7 +49,6 @@ export class SearchPage {
     storage.get('trabalhos').then((val) => {
       this.trabalhos = val;
       if (this.mesa != null) {
-        this.searchMode = "mesas";
         for(var x in this.trabalhos) {
           this.mesa.trabalhos.map((trab) => {
               if(trab.numero == this.trabalhos[x].numero){
@@ -90,12 +91,14 @@ export class SearchPage {
     }
     this.storage.set('trabalhos', this.trabalhos);
   }
-  
+
   download(item) {
-	/*
-	this.http.get(item.url, { headers: 
-	{ 
-		'Content-Type' : 'octet-stream', 
+    const browser = this.iab.create(item.url, '_system');
+    browser.show();
+  /*
+	this.http.get(item.url, { headers:
+	{
+		'Content-Type' : 'octet-stream',
 		'Content-Disposition' : 'attachment; filename="file.pdf"',
 		'Content-Transfer-Encoding' : 'binary'
 	}}).subscribe(data =>{
@@ -103,7 +106,7 @@ export class SearchPage {
     }); */
 
   }
-	
+
   onInput($event) {
     //console.log(this.searchInput);
     switch (this.searchMode) {

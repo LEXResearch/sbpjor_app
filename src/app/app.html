@@ -9,7 +9,7 @@
   </ion-header>
   <ion-content>
     <ion-list no-lines margin-left margin-top>
-      <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)">
+      <button ion-item menuClose *ngFor="let p of appPages" (click)="openPage(p)" [disabled]="p.active">
         <ion-icon item-start [name]="p.icon"></ion-icon>
         {{ p.title }}
       </button>

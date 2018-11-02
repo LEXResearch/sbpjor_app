@@ -6,17 +6,13 @@ page-favorite {
   .title{
     font-size: 16px;
     font-weight: 400;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    white-space: initial;
     width: 100%;
   }
   .author{
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    white-space: initial;
     width: 100%;
   }
   .my-button{

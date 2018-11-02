@@ -20,15 +20,7 @@ export interface PageInterface {
   name: string;
   component: any;
   icon: string;
-}
-
-export interface TrabalhosInterface {
-	numero: number;
-	titulo: string;
-	url: string;
-	autores: string;
-	favorito: boolean;
-	evento: any;
+  active: boolean;
 }
 
 @Component({
@@ -39,41 +31,21 @@ export class MyApp {
 
   rootPage = HomePage;
 
-  trabalhos: Array<TrabalhosInterface>;
-
-  cronograma: Array<{titulo: string, descricao: string, local: string, data: any, open: boolean, cor_hex: any, cor_nome: any, cor_background: any,
-    hora: any, categoria: number, mesas: Array<{titulo: string, coordenada: boolean,
-    trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean}>}>}>;
-
   //papers: Array<any> = [];
   appPages: PageInterface[] = [
-    { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home' },
-    { title: 'Cronograma', name: 'HomePage', component: HomePage, icon: 'custom-cronograma' },
-    { title: 'Pesquisa', name: 'SearchPage', component: SearchPage,   icon: 'custom-pesquisa' },
-    { title: 'Trabalhos Favoritos', name: 'Favorite', component: FavoritePage,   icon: 'custom-favoritos' },
-    { title: 'Fale Conosco', name: 'TalkUs', component: TalkUsPage,   icon: 'custom-contato' },
-    { title: 'Meus Dados', name: 'SearchPage', component: SearchPage,   icon: 'custom-configuracao' },
-    { title: 'Infos', name: 'About', component: AboutPage,   icon: 'custom-informacao' },
+    { title: 'Início', name: 'HomePage', component: HomePage, icon: 'custom-home', active: false },
+    { title: 'Cronograma', name: 'HomePage', component: HomePage, icon: 'custom-cronograma', active: false },
+    { title: 'Pesquisa', name: 'SearchPage', component: SearchPage,   icon: 'custom-pesquisa', active: false },
+    { title: 'Trabalhos Favoritos', name: 'Favorite', component: FavoritePage,   icon: 'custom-favoritos', active: false },
+    { title: 'Fale Conosco', name: 'TalkUs', component: TalkUsPage,   icon: 'custom-contato', active: true },
+    { title: 'Meus Dados', name: 'SearchPage', component: SearchPage,   icon: 'custom-configuracao', active: true },
+    { title: 'Sobre', name: 'About', component: AboutPage,   icon: 'custom-informacao', active: false },
   ]
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public http: HttpClient, private storage: Storage) {
+
     this.initializeApp();
-
-    this.cronograma = [];
-    this.trabalhos = [];
-
-    this.http.get('https://sbpjor-lex.herokuapp.com/cronogramas/?format=json').subscribe(data =>{
-      this.cronograma = data[0].atividades;
-      storage.set('cronograma', this.cronograma);
-    });
-
-    this.http.get<TrabalhosInterface[]>('https://sbpjor-lex.herokuapp.com/trabalhos/?format=json').subscribe(data =>{
-
-      this.trabalhos = data;
-      storage.set('trabalhos', this.trabalhos);
-    });
-
   }
 
   initializeApp() {

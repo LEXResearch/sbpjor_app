@@ -34,6 +34,10 @@ import { AboutPage } from '../pages/about/about';
       links: [
         { component: HomePage, name: 'HomePage', segment: 'cronograma' },
         { component: SearchPage, name: 'SearchPage', segment: 'search' },
+		{ component: DescriptionPage, name: 'DescriptionPage', segment: 'description' },
+		{ component: FavoritePage, name: 'FavoritePage', segment: 'favorite' },
+		{ component: TalkUsPage, name: 'TalkUsPage', segment: 'talkto' },
+		{ component: AboutPage, name: 'AboutPage', segment: 'about' },
       ]
     }),
     HttpClientModule,

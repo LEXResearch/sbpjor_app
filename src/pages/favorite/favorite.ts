@@ -8,7 +8,6 @@ import { Storage } from '@ionic/storage';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-favorite',
   templateUrl: 'favorite.html',

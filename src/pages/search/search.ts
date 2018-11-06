@@ -93,18 +93,7 @@ export class SearchPage {
   }
 
   download(item) {
-    const browser = this.iab.create(item.url, '_system');
-    browser.show();
-  /*
-	this.http.get(item.url, { headers:
-	{
-		'Content-Type' : 'octet-stream',
-		'Content-Disposition' : 'attachment; filename="file.pdf"',
-		'Content-Transfer-Encoding' : 'binary'
-	}}).subscribe(data =>{
-		console.log(data);
-    }); */
-
+    var browser = this.iab.create(item.url, '_system');
   }
 
   onInput($event) {

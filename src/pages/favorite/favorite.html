@@ -27,7 +27,7 @@
             <div class="author">{{ item.autores }}</div>
           </ion-col>
           <ion-col col-2 margin-top>
-            <ion-icon margin-left name="download"></ion-icon>
+            <ion-icon (click)="download(item)" margin-left name="download"></ion-icon>
           </ion-col>
       </ion-row>
     </ion-item>

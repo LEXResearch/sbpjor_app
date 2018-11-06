@@ -37,7 +37,7 @@ export class MyApp {
     { title: 'Cronograma', name: 'HomePage', component: HomePage, icon: 'custom-cronograma', active: false },
     { title: 'Pesquisa', name: 'SearchPage', component: SearchPage,   icon: 'custom-pesquisa', active: false },
     { title: 'Trabalhos Favoritos', name: 'Favorite', component: FavoritePage,   icon: 'custom-favoritos', active: false },
-    { title: 'Fale Conosco', name: 'TalkUs', component: TalkUsPage,   icon: 'custom-contato', active: true },
+    { title: 'Fale Conosco', name: 'TalkUs', component: TalkUsPage,   icon: 'custom-contato', active: false },
     { title: 'Meus Dados', name: 'SearchPage', component: SearchPage,   icon: 'custom-configuracao', active: true },
     { title: 'Sobre', name: 'About', component: AboutPage,   icon: 'custom-informacao', active: false },
   ]

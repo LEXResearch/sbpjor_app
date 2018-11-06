@@ -88,4 +88,5 @@
     <plugin name="cordova-plugin-document-viewer" spec="^0.9.10" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="7.0.0" />
 </widget>

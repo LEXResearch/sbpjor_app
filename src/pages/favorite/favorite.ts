@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 /**
  * Generated class for the FavoritePage page.
  *
@@ -14,7 +16,7 @@ import { Storage } from '@ionic/storage';
 })
 export class FavoritePage {
   trabalhos: Array<{numero: number, titulo: string, url: string, autores: any, favorito: boolean, evento: number }>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, private iab: InAppBrowser) {
     this.trabalhos = [];
     this.storage.get('trabalhos').then((val) => {
       this.trabalhos = val;
@@ -32,6 +34,10 @@ export class FavoritePage {
        this.trabalhos.splice(index, 1);
     }
     this.storage.set('favoritos', this.trabalhos);
+  }
+
+  download(item) {
+    var browser = this.iab.create(item.url, '_system');
   }
 
   favoritos(trabalhos) {
